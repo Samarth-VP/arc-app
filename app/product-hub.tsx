@@ -1,18 +1,22 @@
-import { ScrollView, Text, View, StyleSheet } from "react-native";
+import { ScrollView, Text, View, StyleSheet, Linking } from "react-native";
 import { useRouter } from "expo-router";
-import { ArrowLeft, Lock } from "lucide-react-native";
+import { ArrowLeft } from "lucide-react-native";
 import { colors, fonts, radius } from "@/constants/theme";
 import { productHubItems } from "@/data/siteContent";
+import { ARC_PRODUCT_HUB_URL, ARC_MY_PRODUCTS_URL } from "@/constants/links";
+import { PrimaryButton, SecondaryButton } from "@/components/Buttons";
 
 export default function ProductHubScreen() {
   const router = useRouter();
   return <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
     <ArrowLeft size={18} color={colors.paper} onPress={() => router.back()} />
-    <Text style={styles.eyebrow}>Product hub</Text><Text style={styles.h1}>Tools for collective action</Text>
-    <Text style={styles.body}>Explore the digital spaces and services that support ARC members, initiatives, and regenerative projects.</Text>
+    <Text style={styles.eyebrow}>Product hub</Text><Text style={styles.h1}>Member-made goods from across the alliance</Text>
+    <Text style={styles.body}>Explore ARC’s marketplace and discover products made by the community. Browse the latest listings and product details on the website.</Text>
+    <PrimaryButton label="Browse products on ARC" onPress={() => Linking.openURL(ARC_PRODUCT_HUB_URL)} />
+    <SecondaryButton label="Sell on Product Hub" onPress={() => Linking.openURL(ARC_MY_PRODUCTS_URL)} style={{ marginTop: 10, marginBottom: 22 }} />
     <View style={styles.stack}>{productHubItems.map((item) => <View key={item.title} style={styles.card}>
-      <View style={styles.row}><Text style={styles.title}>{item.title}</Text><Lock size={14} color={colors.textMuted} /></View>
-      <Text style={styles.description}>{item.description}</Text><Text style={styles.access}>MEMBER FEATURE</Text>
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.description}>{item.description}</Text>
     </View>)}</View>
   </ScrollView>;
 }

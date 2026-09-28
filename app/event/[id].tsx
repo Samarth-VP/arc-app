@@ -5,7 +5,8 @@ import { colors, fonts } from "@/constants/theme";
 import { Chip } from "@/components/Chip";
 import { PrimaryButton, GhostButton } from "@/components/Buttons";
 import { useApp } from "@/context/AppContext";
-import { events } from "@/data/events";
+import { events, isPartnerEventLocked } from "@/data/events";
+import { LockedPartnerEvent } from "@/components/LockedPartnerEvent";
 
 export default function EventDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -18,6 +19,15 @@ export default function EventDetailScreen() {
       <View style={styles.screen}>
         <Text style={styles.notFound}>Event not found.</Text>
       </View>
+    );
+  }
+
+  if (isPartnerEventLocked(event)) {
+    return (
+      <ScrollView style={styles.screen} contentContainerStyle={{ padding: 20, paddingBottom: 32 }}>
+        <GhostButton label="Back to events" onPress={() => router.replace("/(tabs)/events")} style={{ marginBottom: 18 }} />
+        <LockedPartnerEvent title={event.title} />
+      </ScrollView>
     );
   }
 

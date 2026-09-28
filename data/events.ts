@@ -12,6 +12,9 @@ export type ArcEvent = {
   link?: string;
 };
 
+// Temporary presentation gate until website-backed member access is available.
+export const isPartnerEventLocked = (event: ArcEvent) => event.tag === "Partner Event";
+
 const roundtableImage =
   "https://alliance4regencomm.com/__l5e/assets-v1/0ba802f6-1c44-4590-820b-3d3ddc1b2851/arc-roundtables-flyer-sept.jpg";
 const roundtableLink = "https://RoadTo2028Beyond.com/";
